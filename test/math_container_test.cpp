@@ -19,7 +19,7 @@ void sort_indexes_test()
 
 void coshx_eq_expy_test()
 {
- vector<double> v={2.0,1.1,3.0,4.0,0.0,-1.2,-3.3};
+ vector<double> v={-5.0,-3.3,-1.2,0.0,1.1,2.0,3.0,4.0};
  complex<double> gamma;
  size_t flag=0;
  for (auto i: v)
