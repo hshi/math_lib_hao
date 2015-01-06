@@ -7,6 +7,6 @@ using std::complex;
 /******************************************************/
 complex<double> coshx_eq_expy(double y)
 {
- complex<double> ey={exp(y),0};
- return log(ey-sqrt(ey*ey-1.0));
+    complex<double> ey={exp(y),0};
+    return log(ey-sqrt(ey*ey-1.0));
 }
