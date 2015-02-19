@@ -1,9 +1,11 @@
 #include "math_container.h"
+#include <iostream>
 
 #ifdef MPI_HAO
 #include <mpi.h>
 #endif
 
+using namespace std;
 void math_container_test();
 
 int main(int argc, char** argv)
@@ -17,6 +19,7 @@ int main(int argc, char** argv)
 
     if(rank==0)
     {
+        cout<<"\n\n\n=======Testing======="<<endl;
         math_container_test();
     }
 
