@@ -1,6 +1,6 @@
 #include "math_container.h"
 
-using std::complex;
+using namespace std;
 
 /******************************************************/
 /*solve the equation cosh(x)=exp(y), input y, return x*/
