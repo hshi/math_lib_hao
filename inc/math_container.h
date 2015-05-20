@@ -1,5 +1,5 @@
-#ifndef MATH_CONTAINER
-#define MATH_CONTAINER
+#ifndef MATH_CONTAINER_H
+#define MATH_CONTAINER_H
 
 #include <iostream>
 #include <vector>
