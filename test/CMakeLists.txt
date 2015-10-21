@@ -1,4 +1,4 @@
-set(math_test_srcs math_container_test.cpp test_all.cpp)
+set(math_test_srcs simple_fun_test.cpp sort_indexes_test.cpp brents_fun_test.cpp test_all.cpp)
 
 add_executable(mathtest ${math_test_srcs})
 

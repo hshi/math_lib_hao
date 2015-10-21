@@ -6,8 +6,9 @@
 #endif
 
 using namespace std;
-void math_container_test();
-
+void coshx_eq_expy_test();
+void sort_indexes_test();
+void brents_fun_test();
 int main(int argc, char** argv)
 {
     int rank=0;
@@ -20,7 +21,9 @@ int main(int argc, char** argv)
     if(rank==0)
     {
         cout<<"\n\n\n=======Testing======="<<endl;
-        math_container_test();
+        coshx_eq_expy_test();
+        sort_indexes_test();
+        brents_fun_test();
     }
 
 

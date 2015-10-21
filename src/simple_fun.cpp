@@ -1,5 +1,4 @@
-#include "math_container.h"
-
+#include "simple_fun.h"
 using namespace std;
 
 /******************************************************/

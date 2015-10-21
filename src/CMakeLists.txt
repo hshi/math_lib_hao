@@ -1,4 +1,4 @@
-set(math_srcs math_container.cpp)
+set(math_srcs simple_fun.cpp brents_fun.cpp)
 
 add_library(mathhao STATIC ${math_srcs})
 
