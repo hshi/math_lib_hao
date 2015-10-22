@@ -2,7 +2,7 @@
 #include <iomanip>
 
 //The code is from: http://rosettacode.org/wiki/Roots_of_a_function#C.2B.2B 
-double brents_fun(std::function<double (double)> f, double lower, double upper, double tol, unsigned int max_iter)
+unsigned int brents_fun(std::function<double (double)> f, double& sol, double lower, double upper, double tol, unsigned int max_iter)
 {
 	double a = lower;
 	double b = upper;
@@ -13,8 +13,8 @@ double brents_fun(std::function<double (double)> f, double lower, double upper, 
 	if (!(fa * fb < 0))
 	{
                 // throws exception if root isn't bracketed
-		std::cout << "Signs of f(lower_bound) and f(upper_bound) must be opposites" << std::endl; 
-		return -11;
+		//std::cout << "Signs of f(lower_bound) and f(upper_bound) must be opposites" << std::endl; 
+		return 0;
 	}
  
 	if (std::abs(fa) < std::abs(b))	// if magnitude of f(lower_bound) is less than magnitude of f(upper_bound)
@@ -34,8 +34,9 @@ double brents_fun(std::function<double (double)> f, double lower, double upper, 
 		// stop if converged on root or error is less than tolerance
 		if (std::abs(b-a) < tol)
 		{
-			std::cout<<std::setprecision(16)<< "After " << iter << " iterations the root is: " << s << std::endl;
-			return s;
+			//std::cout<<std::setprecision(16)<< "After " << iter << " iterations the root is: " << s << std::endl;
+                        sol=s;
+			return iter;
 		} // end if
  
 		if (fa != fc && fb != fc)
@@ -93,7 +94,7 @@ double brents_fun(std::function<double (double)> f, double lower, double upper, 
  
 	} // end for
  
-	std::cout<< "The solution does not converge or iterations are not sufficient" << std::endl;
-        return -11;
+	//std::cout<< "The solution does not converge or iterations are not sufficient" << std::endl;
+        return max_iter;
  
 } // end brents_fun
