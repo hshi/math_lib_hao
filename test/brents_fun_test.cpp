@@ -32,4 +32,8 @@ void brents_fun_test()
      x=brents_fun([](double x) { return fun3(x, 7.0); },0.0,5.0,eta);
      if(abs(x-4.0)<eta) cout<<"brents_fun passed partially function quadratic order test!\n";
      else cout<<"Warning!!!!brents_fun failed partially function quadratic order test!!\n";
+
+     x=brents_fun( bind(fun3, placeholders::_1, 7.0), 0.0, 5.0,eta);
+     if(abs(x-4.0)<eta) cout<<"brents_fun passed partially function (bind) quadratic order test!\n";
+     else cout<<"Warning!!!!brents_fun failed partially function (bind) quadratic order test!!\n";
 }
