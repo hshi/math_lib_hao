@@ -1,4 +1,7 @@
 #include "brents_fun.h"
+#ifdef MPI_HAO
+#include <mpi.h>
+#endif
 
 using namespace std;
 
@@ -17,7 +20,7 @@ double fun3(double x,double y)
   return x*x-2.0*x-1.0-y;
 }
 
-void brents_fun_test()
+void brents_test()
 {
      double eta=1e-8;
      double x;
@@ -37,3 +40,19 @@ void brents_fun_test()
      if(abs(x-4.0)<eta) cout<<"brents_fun passed partially function (bind) quadratic order test!\n";
      else cout<<"Warning!!!!brents_fun failed partially function (bind) quadratic order test!!\n";
 }
+
+
+void brents_fun_test()
+{
+    int rank=0;
+#ifdef MPI_HAO
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
+
+    if(rank==0)
+    {
+        brents_test();
+    }
+
+    if(rank==0) cout<<"\n";
+} 

@@ -1,5 +1,5 @@
-#ifndef SORT_INDEXES_H
-#define SORT_INDEXES_H
+#ifndef SORT_FUN_H
+#define SORT_FUN_H
 
 #include <iostream>
 #include <vector>
