@@ -12,4 +12,8 @@
 /******************************************************/
 std::complex<double> coshx_eq_expy(double y);
 
+/******************************************************/
+/*solve the equation cos(x)=exp(y), input y, return x*/
+/******************************************************/
+std::complex<double> cosx_eq_expy(double y);
 #endif

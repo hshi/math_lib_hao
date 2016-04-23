@@ -15,3 +15,19 @@ complex<double> coshx_eq_expy(double y)
 
     return gamma;
 }
+
+
+/******************************************************/
+/*solve the equation cos(x)=exp(y), input y, return x*/
+/******************************************************/
+complex<double> cosx_eq_expy(double y)
+{
+    complex<double> ey={exp(y),0};
+    complex<double> gamma=acos(ey);
+
+    //Since gamma is pure real or pure imaginary, set it:
+    if( abs( gamma.real() ) < abs( gamma.imag() ) )  gamma=complex<double>( 0, gamma.imag() );
+    else                                             gamma=complex<double>( gamma.real(), 0 );
+
+    return gamma;
+}
