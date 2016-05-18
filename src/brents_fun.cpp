@@ -10,7 +10,7 @@ unsigned int brents_fun(std::function<double (double)> f, double& sol, double lo
 	double fb = f(b);	// calculated now to save function calls
 	double fs = 0;		// initialize 
  
-	if (!(fa * fb < 0))
+	if ( fa * fb > 0)
 	{
                 // throws exception if root isn't bracketed
 		//std::cout << "Signs of f(lower_bound) and f(upper_bound) must be opposites" << std::endl; 
