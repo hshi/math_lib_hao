@@ -26,19 +26,19 @@ unsigned int brents_fun(std::function<double (double)> f, double& sol, double lo
 	double c = a;			// c now equals the largest magnitude of the lower and upper bounds
 	double fc = fa;			// precompute function evalutation for point c by assigning it the same value as fa
 	bool mflag = true;		// boolean flag used to evaluate if statement later on
-	double s = 0;			// Our Root that will be returned
+	double s = b;			// Our Root that will be returned
 	double d = 0;			// Only used if mflag is unset (mflag == false)
  
 	for (unsigned int iter = 1; iter < max_iter; ++iter)
 	{
 		// stop if converged on root or error is less than tolerance
-		if (std::abs(b-a) < tol)
+		if (std::abs(b-a) < tol || fb==0)
 		{
 			//std::cout<<std::setprecision(16)<< "After " << iter << " iterations the root is: " << s << std::endl;
-                        sol=b;
+                        sol=s;
 			return iter;
 		} // end if
- 
+
 		if (fa != fc && fb != fc)
 		{
 			// use inverse quadratic interopolation
