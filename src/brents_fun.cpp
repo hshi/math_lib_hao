@@ -35,7 +35,7 @@ unsigned int brents_fun(std::function<double (double)> f, double& sol, double lo
 		if (std::abs(b-a) < tol)
 		{
 			//std::cout<<std::setprecision(16)<< "After " << iter << " iterations the root is: " << s << std::endl;
-                        sol=s;
+                        sol=b;
 			return iter;
 		} // end if
  
