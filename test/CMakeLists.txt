@@ -1,7 +1,9 @@
-set(math_test_srcs simple_fun_test.cpp sort_fun_test.cpp brents_fun_test.cpp test_all.cpp)
+set(test_exe mathtest)
 
-add_executable(mathtest ${math_test_srcs})
+file(GLOB test_srcs "*.cpp")
 
-target_link_libraries(mathtest mathhao)
+add_executable(${test_exe} ${test_srcs})
 
-install(TARGETS mathtest  DESTINATION test)
+target_link_libraries(${test_exe} mathhao)
+
+install(TARGETS ${test_exe}  DESTINATION test)

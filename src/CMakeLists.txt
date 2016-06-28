@@ -1,5 +1,7 @@
-set(math_srcs simple_fun.cpp brents_fun.cpp)
+set(src_lib mathhao)
 
-add_library(mathhao STATIC ${math_srcs})
+file(GLOB srcs "*.cpp")
 
-install(TARGETS mathhao DESTINATION lib)
+add_library(${src_lib} STATIC ${srcs})
+
+install(TARGETS ${src_lib}  DESTINATION lib)
