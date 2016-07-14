@@ -16,8 +16,8 @@ void coshx_eq_expy_test()
         //cout<<abs(cosh(gamma)-exp(i))<<endl;
         if(abs(cosh(gamma)-exp(i))>1e-10) flag++;
     }
-    if(flag==0) cout<<"Coshx_eq_expy passed the test!\n";
-    else cout<<"Warning!!!!Coshx_eq_expy failed the test!\n";
+    if(flag==0) cout<<"PASSED! Coshx_eq_expy passed the test!"<<endl;
+    else cout<<"Warning!!!!Coshx_eq_expy failed the test!"<<endl;
 }
 
 
@@ -32,8 +32,8 @@ void cosx_eq_expy_test()
         //cout<<abs(cos(gamma)-exp(i))<<endl;
         if(abs(cos(gamma)-exp(i))>1e-10) flag++;
     }
-    if(flag==0) cout<<"Cosx_eq_expy passed the test!\n";
-    else cout<<"Warning!!!!Cosx_eq_expy failed the test!\n";
+    if(flag==0) cout<<"PASSED! Cosx_eq_expy passed the test!"<<endl;
+    else cout<<"Warning!!!!Cosx_eq_expy failed the test!"<<endl;
 }
 
 void simple_fun_test()
@@ -49,5 +49,5 @@ void simple_fun_test()
         cosx_eq_expy_test();
     }
 
-    if(rank==0) cout<<"\n";
+    if(rank==0) cout<<" "<<endl;
 } 

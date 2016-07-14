@@ -17,8 +17,8 @@ void sort_indexes_test()
         if(v[idx[i]]>v[idx[i+1]]) flag++;
         //cout<<v[idx[i]]<<" "<<v[idx[i+1]]<<endl;;
     }
-    if(flag==0) cout<<"Sort_indexes passed the test!\n";
-    else cout<<"Warning!!!!Sort_indexes failed the test!\n";
+    if(flag==0) cout<<"PASSED! Sort_indexes passed the test!"<<endl;
+    else cout<<"Warning!!!!Sort_indexes failed the test!"<<endl;
 }
 
 
@@ -34,5 +34,5 @@ void sort_fun_test()
         sort_indexes_test();
     }
 
-    if(rank==0) cout<<"\n";
+    if(rank==0) cout<<" "<<endl;
 }

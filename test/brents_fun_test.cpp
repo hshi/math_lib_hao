@@ -25,20 +25,20 @@ void brents_test()
      double eta=1e-8;
      double x;
      brents_fun(fun1,x,-1.0,5.0,eta);
-     if(abs(x-0.5)<eta) cout<<"brents_fun passed quadratic order test!\n";
-     else cout<<"Warning!!!!brents_fun failed quadratic order test!!\n";
+     if(abs(x-0.5)<eta) cout<<"PASSED! brents_fun passed quadratic order test!"<<endl;
+     else cout<<"Warning!!!!brents_fun failed quadratic order test!!"<<endl;
 
      brents_fun(fun2,x,1.0,5.0,eta);
-     if(abs(x-3.0)<eta) cout<<"brents_fun passed quadratic order test!\n";
-     else cout<<"Warning!!!!brents_fun failed quadratic order test!!\n";
+     if(abs(x-3.0)<eta) cout<<"PASSED! brents_fun passed quadratic order test!"<<endl;
+     else cout<<"Warning!!!!brents_fun failed quadratic order test!!"<<endl;
 
      brents_fun([](double x) { return fun3(x, 7.0); },x,0.0,5.0,eta);
-     if(abs(x-4.0)<eta) cout<<"brents_fun passed partially function quadratic order test!\n";
-     else cout<<"Warning!!!!brents_fun failed partially function quadratic order test!!\n";
+     if(abs(x-4.0)<eta) cout<<"PASSED! brents_fun passed partially function quadratic order test!"<<endl;
+     else cout<<"Warning!!!!brents_fun failed partially function quadratic order test!!"<<endl;
 
      brents_fun( bind(fun3, placeholders::_1, 7.0),x, 0.0, 5.0,eta);
-     if(abs(x-4.0)<eta) cout<<"brents_fun passed partially function (bind) quadratic order test!\n";
-     else cout<<"Warning!!!!brents_fun failed partially function (bind) quadratic order test!!\n";
+     if(abs(x-4.0)<eta) cout<<"PASSED! brents_fun passed partially function (bind) quadratic order test!"<<endl;
+     else cout<<"Warning!!!!brents_fun failed partially function (bind) quadratic order test!!"<<endl;
 }
 
 
@@ -54,5 +54,5 @@ void brents_fun_test()
         brents_test();
     }
 
-    if(rank==0) cout<<"\n";
+    if(rank==0) cout<<" "<<endl;
 } 
