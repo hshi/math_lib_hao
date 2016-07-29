@@ -32,6 +32,7 @@ complex<double> cosx_eq_expy(double y)
     return gamma;
 }
 
+
 /***************************************************************/
 /* Input matrix is:                                            */
 /* (a , c*)                                                    */
@@ -65,3 +66,35 @@ void exp_matrix(double& a, double& b, complex<double>& c)
     c = d0*v10*conj(v00) + d1*v11*conj(v01);
 }
 
+
+/***************************************************************/
+/* Input matrix is:                                            */
+/* (a , c*)                                                    */
+/* (c , b )                                                    */
+/* Output lowest eigenvalue and eigenvector                    */
+/***************************************************************/
+double ground_eigen(double a, double b, complex<double> c, complex<double>& vec0, complex<double>& vec1)
+{
+    double abs_c = std::abs(c);
+    double arg_c = std::arg(c);
+    double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
+
+    //Eigenvalues
+    double d0 = 0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5;
+    double d1 =-0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5;
+
+    //Lowest eigenvector
+    complex<double> im(0.0,1.0);
+    if( d0 < d1 ) 
+    {
+        vec0 = exp(-im*arg_c*0.5 ) * cos(xi);
+        vec1 = exp( im*arg_c*0.5 ) * sin(xi);
+        return d0; 
+    }
+    else
+    {
+        vec0 = -exp(-im*arg_c*0.5 ) * sin(xi);
+        vec1 =  exp( im*arg_c*0.5 ) * cos(xi);
+        return d1;
+    }   
+}

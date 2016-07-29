@@ -17,6 +17,7 @@ std::complex<double> coshx_eq_expy(double y);
 /******************************************************/
 std::complex<double> cosx_eq_expy(double y);
 
+
 /***************************************************************/
 /* Input matrix is:                                            */
 /* (a , c*)                                                    */
@@ -25,5 +26,14 @@ std::complex<double> cosx_eq_expy(double y);
 /* Similiar to diagonalize BCS matrix, see my note for details */
 /***************************************************************/
 void exp_matrix(double& a, double& b, std::complex<double>& c);
+
+
+/***************************************************************/
+/* Input matrix is:                                            */
+/* (a , c*)                                                    */
+/* (c , b )                                                    */
+/* Output lowest eigenvalue and eigenvector                    */
+/***************************************************************/
+double ground_eigen(double a, double b, std::complex<double> c, std::complex<double>& vec0, std::complex<double>& vec1);
 
 #endif

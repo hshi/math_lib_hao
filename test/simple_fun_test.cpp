@@ -1,3 +1,4 @@
+#include <random>
 #include "simple_fun.h"
 #ifdef MPI_HAO
 #include <mpi.h>
@@ -57,6 +58,31 @@ void exp_matrix_test()
 }
 
 
+void ground_eigen_test()
+{
+    std::default_random_engine generator;
+    std::uniform_real_distribution<double> distribution(-2.0,2.0);
+
+    int flag=0;
+    double  a, b; complex<double> c;
+    double d0, d0_exact; complex<double> v0, v1;
+    for(int i=0; i<20; i++)
+    {
+        a = distribution(generator);
+        b = distribution(generator);
+        c = complex<double>( distribution(generator), distribution(generator) );
+
+        d0 = ground_eigen(a, b, c, v0, v1);
+        d0_exact = ( a + b -sqrt( (a-b)*(a-b)+ 4*std::abs(c)*std::abs(c) ) ) * 0.5;
+
+        if( std::abs( a*v0+conj(c)*v1 - d0*v0 ) > 1e-12 ) flag++;
+        if( std::abs( c*v0+b*v1 - d0*v1 ) > 1e-12 ) flag++;
+        if( std::abs( d0_exact-d0 ) > 1e-12 ) flag++;
+    }
+    if(flag==0) cout<<"PASSED! Ground_eigen passed the test!"<<endl;
+    else cout<<"Warning!!!! Ground_eigen failed the test!"<<endl;
+}
+
 void simple_fun_test()
 {
     int rank=0;
@@ -69,6 +95,7 @@ void simple_fun_test()
         coshx_eq_expy_test();
         cosx_eq_expy_test();
         exp_matrix_test();
+        ground_eigen_test();
     }
 
     if(rank==0) cout<<" "<<endl;
