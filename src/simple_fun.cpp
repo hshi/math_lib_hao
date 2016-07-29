@@ -31,3 +31,37 @@ complex<double> cosx_eq_expy(double y)
 
     return gamma;
 }
+
+/***************************************************************/
+/* Input matrix is:                                            */
+/* (a , c*)                                                    */
+/* (c , b )                                                    */
+/* Output exp of this matrix                                   */
+/* Similiar to diagonalize BCS matrix, see my note for details */
+/***************************************************************/
+void exp_matrix(double& a, double& b, complex<double>& c)
+{
+    double abs_c = std::abs(c);
+    double arg_c = std::arg(c);
+    double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
+
+    //Eigenvalues
+    double d0 = 0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5;
+    double d1 =-0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5;
+
+    d0 = exp(d0);
+    d1 = exp(d1);
+
+    //Eigenvectors
+    complex<double> im(0.0,1.0);
+    complex<double> v00 =  exp(-im*arg_c*0.5 ) * cos(xi);
+    complex<double> v10 =  exp( im*arg_c*0.5 ) * sin(xi);
+    complex<double> v01 = -exp(-im*arg_c*0.5 ) * sin(xi);
+    complex<double> v11 =  exp( im*arg_c*0.5 ) * cos(xi);
+
+    //Calculate v.d.v^{+}
+    a = ( d0*v00*conj(v00) + d1*v01*conj(v01) ).real();
+    b = ( d0*v10*conj(v10) + d1*v11*conj(v11) ).real();
+    c = d0*v10*conj(v00) + d1*v11*conj(v01);
+}
+
