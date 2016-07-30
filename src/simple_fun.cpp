@@ -42,23 +42,47 @@ complex<double> cosx_eq_expy(double y)
 /***************************************************************/
 void exp_matrix(double& a, double& b, complex<double>& c)
 {
+    if( std::abs(c) < 1e-60 )
+    {
+        a = exp(a); b = exp(b); c = 0.0;
+        return;
+    }
+
     double abs_c = std::abs(c);
     double arg_c = std::arg(c);
-    double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
 
-    //Eigenvalues
-    double d0 = 0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5;
-    double d1 =-0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5;
-
-    d0 = exp(d0);
-    d1 = exp(d1);
-
-    //Eigenvectors
+    double d0, d1;
+    complex<double> v00, v01, v10, v11;
     complex<double> im(0.0,1.0);
-    complex<double> v00 =  exp(-im*arg_c*0.5 ) * cos(xi);
-    complex<double> v10 =  exp( im*arg_c*0.5 ) * sin(xi);
-    complex<double> v01 = -exp(-im*arg_c*0.5 ) * sin(xi);
-    complex<double> v11 =  exp( im*arg_c*0.5 ) * cos(xi);
+
+    if( std::abs(a-b) < 1e-60 )
+    {
+        double norm = 1.0/sqrt(2.0);
+
+        //Exp of Eigenvalues
+        d0 = exp( -abs_c ); 
+        d1 = exp( abs_c  );
+
+        //Eigenvectors
+        v00 = -norm;
+        v10 =  norm * exp( im*arg_c );
+        v01 =  norm;
+        v11 =  norm * exp( im*arg_c );
+    }
+    else
+    {
+        double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
+
+        //Exp of Eigenvalues
+        d0 =exp(  0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5 );
+        d1 =exp( -0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5 );
+
+        //Eigenvectors
+        v00 =  exp(-im*arg_c*0.5 ) * cos(xi);
+        v10 =  exp( im*arg_c*0.5 ) * sin(xi);
+        v01 = -exp(-im*arg_c*0.5 ) * sin(xi);
+        v11 =  exp( im*arg_c*0.5 ) * cos(xi);
+    }
 
     //Calculate v.d.v^{+}
     a = ( d0*v00*conj(v00) + d1*v01*conj(v01) ).real();
@@ -71,30 +95,40 @@ void exp_matrix(double& a, double& b, complex<double>& c)
 /* Input matrix is:                                            */
 /* (a , c*)                                                    */
 /* (c , b )                                                    */
-/* Output lowest eigenvalue and eigenvector                    */
+/* Output eigenvalues and eigenvectors                         */
 /***************************************************************/
-double ground_eigen(double a, double b, complex<double> c, complex<double>& vec0, complex<double>& vec1)
+void eigen_matrix(double a, double b, complex<double> c, double* eig, complex<double>* vec)
 {
+    if( std::abs(c) < 1e-60 )
+    {
+        eig[0] = a; eig[1] = b;
+        vec[0] = 1.0; vec[1] = 0.0; vec[2] = 0.0; vec[3] = 1.0;
+        return; 
+    }
+
     double abs_c = std::abs(c);
     double arg_c = std::arg(c);
-    double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
-
-    //Eigenvalues
-    double d0 = 0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5;
-    double d1 =-0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5;
-
-    //Lowest eigenvector
     complex<double> im(0.0,1.0);
-    if( d0 < d1 ) 
+
+    if( std::abs(a-b) < 1e-60 )
     {
-        vec0 = exp(-im*arg_c*0.5 ) * cos(xi);
-        vec1 = exp( im*arg_c*0.5 ) * sin(xi);
-        return d0; 
+        double norm = 1.0/sqrt(2.0);
+
+        eig[0] = -abs_c; eig[1] = abs_c;
+        vec[0] = -norm; vec[1] =  norm * exp( im*arg_c ); vec[2] =  norm;  vec[3] =  norm * exp( im*arg_c );
     }
     else
     {
-        vec0 = -exp(-im*arg_c*0.5 ) * sin(xi);
-        vec1 =  exp( im*arg_c*0.5 ) * cos(xi);
-        return d1;
-    }   
+        double xi    = 0.5*atan( 2.0*abs_c/(a-b) );
+
+        //Eigenvalues
+        eig[0] = 0.5*cos(2.0*xi)*(a-b) + sin(2.0*xi)*abs_c + (a+b)*0.5;
+        eig[1] =-0.5*cos(2.0*xi)*(a-b) - sin(2.0*xi)*abs_c + (a+b)*0.5;
+
+        //Eigenvectors
+        vec[0] =  exp(-im*arg_c*0.5 ) * cos(xi);
+        vec[1] =  exp( im*arg_c*0.5 ) * sin(xi);
+        vec[2] = -exp(-im*arg_c*0.5 ) * sin(xi);
+        vec[3] =  exp( im*arg_c*0.5 ) * cos(xi);
+    }
 }

@@ -39,48 +39,95 @@ void cosx_eq_expy_test()
 
 void exp_matrix_test()
 {
-    double          a ( 1.2 );
-    double          b (-2.0 );
-    complex<double> c ( 3.0, -2.0);
+    double a, b, a_exact, b_exact;
+    complex<double> c, c_exact;
 
-    double a_exact ( 24.33957375963294  );
-    double b_exact ( 10.299809224500716 );
-    complex<double> c_exact (13.162279251686476, -8.774852834457649);
-
+    a =  1.2; b = -2.0; c = complex<double>( 3.0, -2.0 );
     exp_matrix(a,b,c);
+    a_exact = 24.33957375963294;
+    b_exact = 10.299809224500716;
+    c_exact = complex<double>(13.162279251686476, -8.774852834457649);
 
     int flag=0;
     if( abs( a_exact-a ) >1e-12 ) flag++;
     if( abs( b_exact-b ) >1e-12 ) flag++;
     if( abs( c_exact-c ) >1e-12 ) flag++;
+
+
+    a = 0.0; b = 0.0; c = complex<double> (3.0, 2.0);
+    exp_matrix(a,b,c);
+    a_exact = 18.414569374170224;
+    b_exact = 18.414569374170224;
+    c_exact = complex<double>( 15.299239013566734, 10.199492675711154 );
+    if( abs( a_exact-a ) >1e-12 ) flag++;
+    if( abs( b_exact-b ) >1e-12 ) flag++;
+    if( abs( c_exact-c ) >1e-12 ) flag++;
+
+    a = 1.0; b = 2.0; c = 0.0;
+    exp_matrix(a,b,c);
+    a_exact = exp(1.0); b_exact = exp(2.0); c_exact = 0.0;
+    if( abs( a_exact-a ) >1e-12 ) flag++;
+    if( abs( b_exact-b ) >1e-12 ) flag++;
+    if( abs( c_exact-c ) >1e-12 ) flag++;
+
     if(flag==0) cout<<"PASSED! Exp_matrix passed the test!"<<endl;
     else cout<<"Warning!!!! Exp_matrix failed the test!"<<endl;
 }
 
 
-void ground_eigen_test()
+void eigen_matrix_test()
 {
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(-2.0,2.0);
 
     int flag=0;
-    double  a, b; complex<double> c;
-    double d0, d0_exact; complex<double> v0, v1;
+    double a, b; complex<double> c;
+    double eig[2]; complex<double> vec[4];
+
     for(int i=0; i<20; i++)
     {
         a = distribution(generator);
         b = distribution(generator);
         c = complex<double>( distribution(generator), distribution(generator) );
 
-        d0 = ground_eigen(a, b, c, v0, v1);
-        d0_exact = ( a + b -sqrt( (a-b)*(a-b)+ 4*std::abs(c)*std::abs(c) ) ) * 0.5;
+        eigen_matrix(a, b, c, eig, vec);
 
-        if( std::abs( a*v0+conj(c)*v1 - d0*v0 ) > 1e-12 ) flag++;
-        if( std::abs( c*v0+b*v1 - d0*v1 ) > 1e-12 ) flag++;
-        if( std::abs( d0_exact-d0 ) > 1e-12 ) flag++;
+        if( std::abs( a*vec[0]+conj(c)*vec[1] - eig[0]*vec[0] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[0]+b*vec[1] - eig[0]*vec[1] ) > 1e-12 ) flag++;
+        if( std::abs( a*vec[2]+conj(c)*vec[3] - eig[1]*vec[2] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[2]+b*vec[3] - eig[1]*vec[3] ) > 1e-12 ) flag++;
     }
-    if(flag==0) cout<<"PASSED! Ground_eigen passed the test!"<<endl;
-    else cout<<"Warning!!!! Ground_eigen failed the test!"<<endl;
+
+    for(int i=0; i<20; i++)
+    {
+        a = 0.0;
+        b = 0.0;
+        c = complex<double>( distribution(generator), distribution(generator) );
+
+        eigen_matrix(a, b, c, eig, vec);
+
+        if( std::abs( a*vec[0]+conj(c)*vec[1] - eig[0]*vec[0] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[0]+b*vec[1] - eig[0]*vec[1] ) > 1e-12 ) flag++;
+        if( std::abs( a*vec[2]+conj(c)*vec[3] - eig[1]*vec[2] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[2]+b*vec[3] - eig[1]*vec[3] ) > 1e-12 ) flag++;
+    }
+
+    for(int i=0; i<20; i++)
+    {
+        a = distribution(generator);
+        b = distribution(generator);
+        c = 0.0;
+
+        eigen_matrix(a, b, c, eig, vec);
+
+        if( std::abs( a*vec[0]+conj(c)*vec[1] - eig[0]*vec[0] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[0]+b*vec[1] - eig[0]*vec[1] ) > 1e-12 ) flag++;
+        if( std::abs( a*vec[2]+conj(c)*vec[3] - eig[1]*vec[2] ) > 1e-12 ) flag++;
+        if( std::abs( c*vec[2]+b*vec[3] - eig[1]*vec[3] ) > 1e-12 ) flag++;
+    }
+
+    if(flag==0) cout<<"PASSED! Eigen_matrix passed the test!"<<endl;
+    else cout<<"Warning!!!! eigen_matrix failed the test!"<<endl;
 }
 
 void simple_fun_test()
@@ -95,7 +142,7 @@ void simple_fun_test()
         coshx_eq_expy_test();
         cosx_eq_expy_test();
         exp_matrix_test();
-        ground_eigen_test();
+        eigen_matrix_test();
     }
 
     if(rank==0) cout<<" "<<endl;

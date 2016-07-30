@@ -32,8 +32,8 @@ void exp_matrix(double& a, double& b, std::complex<double>& c);
 /* Input matrix is:                                            */
 /* (a , c*)                                                    */
 /* (c , b )                                                    */
-/* Output lowest eigenvalue and eigenvector                    */
+/* Output eigenvalues and eigenvectors                         */
 /***************************************************************/
-double ground_eigen(double a, double b, std::complex<double> c, std::complex<double>& vec0, std::complex<double>& vec1);
+void eigen_matrix(double a, double b, std::complex<double> c, double* eig, std::complex<double>* vec);
 
 #endif
