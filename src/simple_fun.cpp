@@ -60,8 +60,8 @@ void exp_matrix(double& a, double& b, complex<double>& c)
         double norm = 1.0/sqrt(2.0);
 
         //Exp of Eigenvalues
-        d0 = exp( -abs_c ); 
-        d1 = exp( abs_c  );
+        d0 = exp( -abs_c + a ); 
+        d1 = exp(  abs_c + b );
 
         //Eigenvectors
         v00 = -norm;
@@ -114,7 +114,7 @@ void eigen_matrix(double a, double b, complex<double> c, double* eig, complex<do
     {
         double norm = 1.0/sqrt(2.0);
 
-        eig[0] = -abs_c; eig[1] = abs_c;
+        eig[0] = -abs_c + a; eig[1] = abs_c + b;
         vec[0] = -norm; vec[1] =  norm * exp( im*arg_c ); vec[2] =  norm;  vec[3] =  norm * exp( im*arg_c );
     }
     else

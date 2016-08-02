@@ -100,8 +100,8 @@ void eigen_matrix_test()
 
     for(int i=0; i<20; i++)
     {
-        a = 0.0;
-        b = 0.0;
+        a = distribution(generator);
+        b = a;
         c = complex<double>( distribution(generator), distribution(generator) );
 
         eigen_matrix(a, b, c, eig, vec);
