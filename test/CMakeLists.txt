@@ -1,6 +1,14 @@
 set(test_exe mathtest)
 
-file(GLOB test_srcs "*.cpp")
+set(test_srcs
+        ../inc/brents_fun.h
+        ../inc/math_container.h
+        ../inc/simple_fun.h
+        ../inc/sort_fun.h
+        brents_fun_test.cpp
+        simple_fun_test.cpp
+        sort_fun_test.cpp
+        test_all.cpp)
 
 add_executable(${test_exe} ${test_srcs})
 

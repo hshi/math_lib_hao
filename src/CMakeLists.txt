@@ -1,6 +1,12 @@
 set(src_lib mathhao)
 
-file(GLOB srcs "*.cpp")
+set(srcs
+        ../inc/brents_fun.h
+        ../inc/math_container.h
+        ../inc/simple_fun.h
+        ../inc/sort_fun.h
+        brents_fun.cpp
+        simple_fun.cpp)
 
 add_library(${src_lib} STATIC ${srcs})
 
